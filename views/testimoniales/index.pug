@@ -1,0 +1,40 @@
+extends ../layout/index 
+block contenido
+    main.container.mt-5
+        h1.text-center.mb-5 #{pagina}
+
+
+        .row
+            .col-md-12
+                blockquote.text-center Lee sobre nosotros y sus experiencias
+                .row.testimoniales
+                    each test in testimoniales
+                        .col-md-6.col-lg-4.mb-4
+                            .card
+                                .card-body
+                                    blockquote.blockquote
+                                        p.mb-0
+                                            | #{test.mensaje}
+                                    footer.blockquote-footer
+                                        | #{test.nombre}
+                        
+                    
+            .col-md-12
+                    h2.text-center agrega Testimoniales
+                    if(errores)
+                        each error in errores
+                            .alert.alert-danger.text-center=error.mensaje
+                            
+                    .row.justify-content-center
+                        .col-md-8
+                            form(action="/testimoniales",method="POST")
+                                .form-group
+                                    label(for="nombre") Nombre
+                                    input(type="text",id="nombre", class="form-control" , placeholder="tu nombre",name="nombre",value=nombre)
+                                .form-group
+                                    label(for="correo") Correo electronico
+                                    input(type="email",id="correo", class="form-control" , placeholder="tu correo",name="correo",value=correo)   
+                                .form-group
+                                    label(for="mensaje") Mensaje
+                                    textarea(id="mensaje", class="form-control" , placeholder="tu nombre",name="mensaje",row="3") mensaje
+                                input(type="submit" ,value="enviar", class="btn btn-success btn-block")
